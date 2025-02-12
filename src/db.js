@@ -56,7 +56,7 @@ module.exports = {
             comment: {
                 type: Sequelize.STRING,
                 allowNull: true,
-            },
+            }, 
 
         });
 
@@ -103,9 +103,9 @@ module.exports = {
 
         return db.sync().then(() => {
             return Movie.bulkCreate([
-                { title: "Inception", genre: "Sci-Fi", duration: 148 },
-                { title: "The Dark Knight", genre: "Action", duration: 152 },
-                { title: "Interstellar", genre: "Sci-Fi", duration: 169 },
+                { title: "Inception", genre: "Sci-Fi", duration: 148, rating: [4.5, 2.3] },
+                { title: "The Dark Knight", genre: "Action", duration: 152, rating: 4.7 },
+                { title: "Interstellar", genre: "Sci-Fi", duration: 169, rating: 3.3 },
                 { title: "Pulp Fiction", genre: "Crime", duration: 154 },
                 { title: "The Godfather", genre: "Crime", duration: 175, },
                 { title: "The Shawshank Redemption", genre: "Drama", duration: 142 }
