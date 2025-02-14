@@ -81,7 +81,7 @@ const ratingsController = {
             });
 
             if (affectedRows === 0) {
-                return res.status(404).json({ error: "Rating not found or not authorized" });
+                return res.status(404).json({ error: "Rating not found" });
             }
 
             return res.status(204).end(); // No content

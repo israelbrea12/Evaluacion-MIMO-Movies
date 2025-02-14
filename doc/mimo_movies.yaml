@@ -4,8 +4,8 @@ info:
   description: API para gestionar películas, valoraciones y watchlist de usuarios.
   version: 1.0.0
 paths:
-  /movies:
-    get:
+  /movies: ✅
+    get: ✅
       summary: Obtiene la lista de películas
       operationId: getMovies
       responses:
@@ -18,8 +18,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Movie"
 
-  /movies/{movieId}/ratings:
-    get:
+  /movies/{movieId}/ratings: ✅
+    get: ✅
       summary: Obtiene las valoraciones de una película
       operationId: getMovieRatings
       parameters:
@@ -38,7 +38,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  properties:
+                  properties: ❌ // Sobra movieId
                     id:
                       type: integer
                     userId:
@@ -49,7 +49,7 @@ paths:
                     comment:
                       type: string
 
-    post:
+    post: ✅
       summary: Crea una valoración para una película
       operationId: createMovieRating
       security:
@@ -79,8 +79,8 @@ paths:
         "401":
           description: No autorizado
 
-  /movies/{movieId}/ratings/{ratingId}:
-    get:
+  /movies/{movieId}/ratings/{ratingId}: ✅
+    get: ✅
       summary: Obtiene una valoración específica de una película
       operationId: getMovieRating
       parameters:
@@ -103,7 +103,7 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
+                properties: ❌
                   id:
                     type: integer
                   userId:
@@ -114,7 +114,7 @@ paths:
                   comment:
                     type: string
 
-    patch:
+    patch: ✅
       summary: Modifica una valoración de una película
       operationId: updateMovieRating
       security:
@@ -150,7 +150,7 @@ paths:
         "401":
           description: No autorizado
 
-    delete:
+    delete: ✅
       summary: Elimina una valoración de una película
       operationId: deleteMovieRating
       security:
@@ -260,8 +260,8 @@ paths:
         "204":
           description: Película eliminada del watchlist
 
-  /sessions:
-    post:
+  /sessions: ✅
+    post: ✅
       summary: Iniciar sesión de usuario
       operationId: login
       requestBody:
