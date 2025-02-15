@@ -38,7 +38,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  properties: ❌ // Sobra movieId
+                  properties:
                     id:
                       type: integer
                     userId:
@@ -103,7 +103,7 @@ paths:
             application/json:
               schema:
                 type: object
-                properties: ❌
+                properties:
                   id:
                     type: integer
                   userId:
@@ -174,8 +174,8 @@ paths:
         "401":
           description: No autorizado
 
-  /watchlist/{userId}:
-    get:
+  /watchlist/{userId}: ✅
+    get: ✅
       summary: Obtiene el watchlist de un usuario
       operationId: getUserWatchlist
       security:
@@ -204,8 +204,8 @@ paths:
                     watched:
                       type: boolean
 
-  /watchlist/{userId}/items:
-    post:
+  /watchlist/{userId}/items: ✅
+    post: ✅
       summary: Añadir una película al watchlist de un usuario
       operationId: addToWatchlist
       security:
@@ -237,8 +237,8 @@ paths:
         "409":
           description: La película ya existe en el watchlist
 
-  /watchlist/{userId}/items/{itemId}:
-    delete:
+  /watchlist/{userId}/items/{itemId}: ✅
+    delete: ✅
       summary: Elimina una película del watchlist de un usuario
       operationId: removeFromWatchlist
       security:

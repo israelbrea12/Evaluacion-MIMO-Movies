@@ -63,6 +63,32 @@ module.exports = {
 
         });
 
+        const Watchlist = db.define(
+            "Watchlist", 
+            {
+                id: {
+                    type: Sequelize.INTEGER,
+                    primaryKey: true,
+                    autoIncrement: true,
+                },
+                userId: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },
+                movieId: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },
+                title: {
+                    type: Sequelize.STRING,
+                    allowNull: true,
+                },
+                watched: {
+                    type: Sequelize.BOOLEAN,
+                    allowNull: false,
+                },
+        });
+
         const User = db.define(
             "User",
             {
@@ -103,6 +129,7 @@ module.exports = {
         );
 
         Movie.hasMany(Rating, { foreignKey: "movieId" });
+        Watchlist.hasMany(Movie, { foreignKey: "movieId"});
 
         return db.sync().then(() => {
             return Movie.bulkCreate([

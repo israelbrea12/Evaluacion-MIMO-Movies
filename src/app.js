@@ -5,6 +5,7 @@ const { respondTo } = require("./middlewares/respondTo");
 const { movieRoutes } = require("./routes/movies");
 const { userRoutes } = require("./routes/users");
 const { sessionRoutes } = require("./routes/sessions");
+const { watchlistRoutes} = require("./routes/watchlists");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(respondTo("application/json"));
 app.use(errorHandler);
 app.use("/movies", movieRoutes);
+app.use("/watchlist", watchlistRoutes);
 app.use("/sessions", sessionRoutes);
 app.use("/users", userRoutes);
 app.use(notFoundHandler);
