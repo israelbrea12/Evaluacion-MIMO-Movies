@@ -13,7 +13,7 @@ cd MIMO-Movies-API
 npm install
 ```
 
-3. Ejecutar la aplicación
+3. Ejecutar la aplicación (Se ejecuta en el puerto 3000) 
 ```sh
 nodemon index.js
 ```
@@ -66,9 +66,13 @@ Si hiciéramos de nuevo una petición al mismo endpoint se actualizaría automá
 
 ### 4. 🔐 Restricción de Acciones por Usuario
 Para reforzar la seguridad, se ha implementado una política de control de acceso basada en usuario autenticado:
+
 ✅ Un usuario solo puede modificar su propia watchlist (no la de otros).
-✅ Un usuario solo puede eliminar sus propias valoraciones.
+
+✅ Un usuario solo puede eliminar sus propios items de su watchlist.
+
 ✅ Un usuario no puede añadir películas a la watchlist de otros usuarios.
+
 ✅ Igual con las valoraciones.
 
 Si un usuario intenta realizar una acción sobre recursos que no le pertenecen, la API responde con:
