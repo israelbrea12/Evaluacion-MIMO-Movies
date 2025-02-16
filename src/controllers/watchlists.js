@@ -16,6 +16,10 @@ const watchlistsController = {
         const { params, body } = req;
         const userId = parseInt(params?.userId, 10);
 
+                    if (req.userId !== userId) {
+                        return res.status(403).json({ error: "Forbidden: You cannot delete another user's watchlist item" });
+                    }
+
         const existingMovie = await WatchlistModel.isMovieInWatchlist(userId, body?.movieId);
         if (existingMovie) {
             return res.status(409).json({ error: "La película ya existe en el watchlist" });
@@ -45,8 +49,16 @@ const watchlistsController = {
 
     async removeFromWatchlist(req, res) {
         const { userId, itemId } = req.params;
+        const userIdInt = parseInt(userId, 10);
 
         try {
+
+            console.log(req.userId);
+            console.log(userIdInt);
+            if (req.userId !== userIdInt) {
+                return res.status(403).json({ error: "Forbidden: You cannot delete another user's watchlist item" });
+            }
+
             const affectedRows = await WatchlistModel.removeFromWatchlist({
                 id: itemId,
                 userId,
@@ -61,7 +73,34 @@ const watchlistsController = {
             console.error("Error deleting item:", error);
             return res.status(500).json({ error: "Internal Server Error" });
         }
-    }
+    },
+
+    async changeWatchedStatus(req, res) {
+        const { userId, itemId } = req.params;
+        const userIdInt = parseInt(userId, 10);
+    
+        try {
+            if (req.userId !== userIdInt) {
+                return res.status(403).json({ error: "Forbidden: You cannot update another user's watchlist item" });
+            }
+    
+            // Buscar el item en la watchlist
+            const watchlistItem = await WatchlistModel.findById(itemId);
+            if (!watchlistItem || watchlistItem.userId !== userIdInt) {
+                return res.status(404).json({ error: "Item not found" });
+            }
+    
+            // Alternar el estado de watched (true -> false, false -> true)
+            watchlistItem.watched = !watchlistItem.watched;
+            await watchlistItem.save();
+    
+            return res.json({ message: "Watchlist item updated", watched: watchlistItem.watched });
+        } catch (error) {
+            console.error("Error updating watchlist item:", error);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+    },
+    
 };
 
 

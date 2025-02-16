@@ -48,6 +48,13 @@ const ratingsController = {
         const { body, userId } = req;
 
         try {
+
+            const rating = await RatingModel.findRatingByMovieAndId(movieId, ratingId);
+
+            if (rating.userId !== userId) {
+                return res.status(403).json({ error: "Forbidden: You cannot modify another user's rating" });
+            }
+
             const [affectedRows] = await RatingModel.updateRating(
                 { id: ratingId, movieId, userId },
                 {
@@ -57,7 +64,7 @@ const ratingsController = {
             );
 
             if (affectedRows === 0) {
-                return res.status(404).json({ error: "Rating not found or not authorized" });
+                return res.status(404).json({ error: "Rating not found" });
             }
 
             const updatedRating = await RatingModel.findRatingByMovieAndId(movieId, ratingId);
@@ -73,6 +80,14 @@ const ratingsController = {
         const { userId } = req;
 
         try {
+            // Verificar si la valoración pertenece al usuario autenticado
+            const rating = await RatingModel.findRatingByMovieAndId(movieId, ratingId);
+
+            if (rating.userId !== userId) {
+                return res.status(403).json({ error: "Forbidden: You cannot delete another user's rating" });
+            }
+
+
             // Intentamos eliminar la valoración únicamente si pertenece al usuario autenticado
             const affectedRows = await RatingModel.deleteRating({
                 id: ratingId,

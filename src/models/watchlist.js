@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../config/db');
 
 const WatchlistModel = {
     get model() {
@@ -30,6 +30,13 @@ const WatchlistModel = {
             where:query,
         });
     },
+
+    async findById(itemId) {
+        return this.model.findOne({
+            where: { id: itemId },
+        });
+    },
+    
 };
 
 module.exports = {

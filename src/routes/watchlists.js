@@ -10,6 +10,8 @@ const router = express.Router();
 router.get("/:userId", verifyToken ,watchlistsController.getUserWatchlist);
 router.post("/:userId/items", validatePayload(watchlistSchema.addToWatchList), verifyToken, watchlistsController.addToWatchlist);
 router.delete("/:userId/items/:itemId", verifyToken, watchlistsController.removeFromWatchlist);
+// Manejar el estado de visto/no visto
+router.patch("/:userId/items/:itemId", verifyToken, watchlistsController.changeWatchedStatus);
 
 module.exports = {
     watchlistRoutes: router,
