@@ -145,12 +145,12 @@ module.exports = {
         Rating.belongsTo(Movie, { foreignKey: "movieId" });
 
         // User - Watchlist relationship
-        User.hasMany(Watchlist, { foreignKey: "userId", onDelete: "CASCADE" });
+        User.hasOne(Watchlist, { foreignKey: "userId", onDelete: "CASCADE" });
         Watchlist.belongsTo(User, { foreignKey: "userId" });
 
-        // Movie - Watchlist relationship
-        Movie.hasMany(Watchlist, { foreignKey: "movieId", onDelete: "CASCADE" });
-        Watchlist.belongsTo(Movie, { foreignKey: "movieId" });
+        // Watchlist - Movie relationship
+        Watchlist.hasMany(Movie, { foreignKey: "movieId", onDelete: "CASCADE" });
+        Movie.belongsTo(Watchlist, { foreignKey: "movieId" });
 
         // SEEDER BASE DE DATOS
         return db.sync().then(async () => {
