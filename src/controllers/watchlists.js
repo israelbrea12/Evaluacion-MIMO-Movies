@@ -1,10 +1,15 @@
-const { exist } = require('joi');
 const { WatchlistModel } = require('../models/watchlist');
 
 const watchlistsController = {
     async getUserWatchlist(req, res) {
         const { params } = req;
         const userId = parseInt(params?.userId, 10);
+
+        // Valido que userId tenga un valor válido. Solucionado gracias a los tests.
+        if (isNaN(userId) || parseInt(userId) <= 0) {
+            return res.status(400).json({ error: "Invalid movieId" });
+        };
+
         const watchlist = await WatchlistModel.getUserWatchList({
             userId: userId,
         });

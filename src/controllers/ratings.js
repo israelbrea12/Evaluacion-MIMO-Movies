@@ -2,6 +2,14 @@ const { RatingModel } = require("../models/rating");
 
 const ratingsController = {
     async getMovieRatings(req, res) {
+
+        const { movieId } = req.params;
+
+        // Valido que movieId tenga un valor válido. Solucionado gracias a los tests.
+        if (isNaN(movieId) || parseInt(movieId) <= 0) {
+            return res.status(400).json({ error: "Invalid movieId" });
+        }
+
         const ratings = await RatingModel.findAllRatingsByMovieId({
             movieId: req.params.movieId,
         });
@@ -12,6 +20,12 @@ const ratingsController = {
         const { movieId, ratingId } = req.params;
 
         try {
+
+            // Valido que ratingId tenga un valor válido. Solucionado gracias a los tests.
+            if (isNaN(ratingId) || parseInt(ratingId) <= 0) {
+                return res.status(400).json({ error: "Invalid ratingId" });
+            }
+
             const rating = await RatingModel.findRatingByMovieAndId(movieId, ratingId);
 
             if (!rating) {
@@ -27,10 +41,12 @@ const ratingsController = {
 
     async createMovieRating(req, res) {
         const body = req.body;
+        const { params } = req;
+        const movieId = parseInt(params?.movieId, 10);
         try {
             const rating = await RatingModel.createMovieRating({
                 userId: req.userId,
-                movieId: req.params.movieId,
+                movieId: movieId,
                 rating: body.rating,
                 comment: body.comment,
             });
@@ -51,9 +67,15 @@ const ratingsController = {
 
             const rating = await RatingModel.findRatingByMovieAndId(movieId, ratingId);
 
+
+            if (!rating) {
+                return res.status(404).json({ error: "Rating not found" });
+            };
+
             if (rating.userId !== userId) {
                 return res.status(403).json({ error: "Forbidden: You cannot modify another user's rating" });
-            }
+            };
+
 
             const [affectedRows] = await RatingModel.updateRating(
                 { id: ratingId, movieId, userId },
@@ -83,10 +105,14 @@ const ratingsController = {
             // Verificar si la valoración pertenece al usuario autenticado
             const rating = await RatingModel.findRatingByMovieAndId(movieId, ratingId);
 
+            if (!rating) {
+                return res.status(404).json({ error: "Rating not found" });
+            };
+            
+
             if (rating.userId !== userId) {
                 return res.status(403).json({ error: "Forbidden: You cannot delete another user's rating" });
-            }
-
+            };
 
             // Intentamos eliminar la valoración únicamente si pertenece al usuario autenticado
             const affectedRows = await RatingModel.deleteRating({
