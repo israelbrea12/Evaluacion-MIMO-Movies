@@ -1,10 +1,10 @@
 const { Sequelize } = require("sequelize");
 const { generateHashedPassword } = require("./auth");
 
-const db = new Sequelize({
-    dialect: "sqlite",
-    storage: ":memory:",
-});
+const db = new Sequelize({ // Creamos una nueva instancia de Sequelize.
+    dialect: "sqlite", // Indicamos que vamos a utilizar SQLite como motor de base de datos. 
+    storage: ":memory:", // Indicamos que vamos a utilizar una base de datos en memoria. Cuando tiremos el servidor los datos se perderán.
+  });
 
 module.exports = {
     get instance() {

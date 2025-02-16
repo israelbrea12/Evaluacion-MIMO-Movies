@@ -5,6 +5,7 @@ const { userSchema } = require("../schemas/user");
 
 const router = express.Router();
 
+// Defino las rutas
 router.post(
   "/",
   validatePayload(userSchema.createUser),

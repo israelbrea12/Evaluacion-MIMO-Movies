@@ -1,3 +1,4 @@
+// Middleware para manejar errores globales
 module.exports = {
   errorHandler: (err, req, res, next) => {
     if(res.headersSent) {

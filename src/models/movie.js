@@ -4,6 +4,7 @@ const MovieModel = {
     getModel() {
         return db.instance.models.Movie;
     },
+    // Busca todas las películas con paginación.
     async findAllMovies(page = 1, limit = 10) {
         const offset = (page - 1) * limit;
         const { count, rows } = await this.getModel().findAndCountAll({

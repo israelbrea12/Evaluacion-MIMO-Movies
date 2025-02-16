@@ -1,3 +1,4 @@
+// Middleware para validar datos
 module.exports = {
   validatePayload: (schema) => (req, res, next) => {
     const data = req.body;

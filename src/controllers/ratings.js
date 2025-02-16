@@ -1,6 +1,7 @@
 const { RatingModel } = require("../models/rating");
 
 const ratingsController = {
+    // Función para obtener tods las valoraciones de una película en específico
     async getMovieRatings(req, res) {
 
         const { movieId } = req.params;
@@ -16,6 +17,7 @@ const ratingsController = {
         res.json(ratings);
     },
 
+    // Función btiene una valoración específica de una película
     async getMovieRating(req, res) {
         const { movieId, ratingId } = req.params;
 
@@ -39,6 +41,7 @@ const ratingsController = {
         }
     },
 
+    // Función que crea una nueva valoración para una película
     async createMovieRating(req, res) {
         const body = req.body;
         const { params } = req;
@@ -59,6 +62,7 @@ const ratingsController = {
         }
     },
 
+    // Actualiza una valoración existente de una película
     async updateMovieRating(req, res) {
         const { movieId, ratingId } = req.params;
         const { body, userId } = req;
@@ -97,6 +101,7 @@ const ratingsController = {
         }
     },
 
+    // Elimina una valoración de una película
     async deleteMovieRating(req, res) {
         const { movieId, ratingId } = req.params;
         const { userId } = req;

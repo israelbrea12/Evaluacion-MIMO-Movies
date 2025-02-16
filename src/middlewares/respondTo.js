@@ -1,3 +1,4 @@
+// Middleware para manejar formatos de respuesta aceptados
 module.exports = {
   respondTo:
     (...acceptedFormats) =>

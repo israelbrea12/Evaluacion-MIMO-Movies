@@ -1,6 +1,7 @@
 const { MovieModel } = require("../models/movie");
 
 const moviesController = {
+    // Obtiene todas las películas con paginación.
     async getAllMovies(req, res) {
         try {
             let { page, limit } = req.query;

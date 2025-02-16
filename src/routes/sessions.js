@@ -5,6 +5,7 @@ const { sessionSchema } = require("../schemas/session");
 
 const router = express.Router();
 
+// Defino las rutas
 router.post(
   "/",
   validatePayload(sessionSchema.createSession),

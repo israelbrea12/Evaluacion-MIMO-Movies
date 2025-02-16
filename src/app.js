@@ -11,6 +11,7 @@ const { watchlistRoutes} = require("./routes/watchlists");
 
 const app = express();
 
+// Uso tanto los middlewares como las rutas
 app.use(express.json());
 app.use(respondTo("application/json"));
 app.use(errorHandler);
