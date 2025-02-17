@@ -8,12 +8,12 @@ git clone https://github.com/israelbrea12/MIMO-Movies-API.git
 cd MIMO-Movies-API
 ```
 
-2. Instalar dependencias
+2. Instalar dependencias (Necesita node.js)
 ``` sh
 npm install
 ```
 
-3. Ejecutar la aplicación (Se ejecuta en el puerto 3000) 
+3. Ejecutar la aplicación (Se ejecuta en el puerto 3000. Necesita nodemon, altenativa node index.js) 
 ```sh
 nodemon index.js
 ```
